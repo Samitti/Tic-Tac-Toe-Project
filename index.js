@@ -1,3 +1,20 @@
+const gameModule = (function () {
+    let gameOn = false;
+    let playerOneName = "";
+    let playerTwoName = "";
+    let currentPlayerName = "";
+    let currentPlayerSym = "";
+
+
+    return {
+        gameOn: gameOn,
+        playerOneName: playerOneName,
+        playerTwoName: playerTwoName,
+        currentPlayerName: currentPlayerName,
+        currentPlayerSym: currentPlayerSym
+    };
+})();
+
 const checkInput = (ev) => {
     ev.preventDefault();
     const playerOneName = document.getElementById("playerOneName").value;
@@ -9,16 +26,30 @@ const checkInput = (ev) => {
     }
 };
 
+
+
 const gameInit = (playerOneName, playerTwoName) => {
-    let gameOn = true;
-    let currentPlayerName = playerOneName;
-    let currentPlayerSym = "X";
+    gameModule.gameOn = true;
+    gameModule.playerOneName = playerOneName;
+    gameModule.playerTwoName = playerTwoName;
+    gameModule.currentPlayerName = playerOneName;
+    gameModule.currentPlayerSym = "X";
     let playersForm = document.getElementById('playersForm');
     playersForm.style.display = 'none';
     let nextPlayer = document.getElementById('nextPlayer');
     nextPlayer.innerHTML = playerOneName + " Start!";
+
 };
 
+const updateMoves = (el) => {
+    if (gameModule.gameOn) {
+        alert(el.value);
+        el.innerHTML = gameModule.currentPlayerSym;
+
+    } else {
+        alert("Invalid Move");
+    }
+}
 
 document.getElementById("startGame").addEventListener("click", checkInput);
 document.getElementById('gameBord').addEventListener('click', (e) => {
