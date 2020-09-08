@@ -4,14 +4,17 @@ const gameModule = (function () {
     let playerTwoName = "";
     let currentPlayerName = "";
     let currentPlayerSym = "";
-
+    let gameBoard = ['', '', '', '', '', '', '', '', '' ];
+    let count = 0;
 
     return {
         gameOn: gameOn,
         playerOneName: playerOneName,
         playerTwoName: playerTwoName,
         currentPlayerName: currentPlayerName,
-        currentPlayerSym: currentPlayerSym
+        currentPlayerSym: currentPlayerSym,
+        gameBoard: gameBoard,
+        count: count
     };
 })();
 
@@ -43,11 +46,43 @@ const gameInit = (playerOneName, playerTwoName) => {
 
 const updateMoves = (el) => {
     if (gameModule.gameOn) {
-        alert(el.value);
         el.innerHTML = gameModule.currentPlayerSym;
-
+        gameModule.gameBoard[el.value] = gameModule.currentPlayerSym;
+        gameModule.count++;
+        winChecker();
+        alert(drawChecker());
     } else {
         alert("Invalid Move");
+    }
+}
+
+const winChecker = () => {
+    let win = false;
+    let gb = gameModule.gameBoard;
+    let winCombinations = [
+        [gb[0], gb[1], gb[2]],
+        [gb[3], gb[4], gb[5]],
+        [gb[6], gb[7], gb[8]],
+        [gb[0], gb[3], gb[6]],
+        [gb[1], gb[4], gb[7]],
+        [gb[2], gb[5], gb[8]],
+        [gb[0], gb[4], gb[8]],
+        [gb[2], gb[4], gb[6]]
+    ];
+    let checkSym = (sym) => sym === gameModule.currentPlayerSym;
+    winCombinations.forEach((el) => {
+        if (el.every(checkSym)) {
+            win = true;
+        };
+    })
+    return win;
+};
+
+const drawChecker = () => {
+    if (gameModule.count > 8) {
+        return true;
+    } else {
+        return false;
     }
 }
 
