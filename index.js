@@ -105,6 +105,8 @@ const checkNextMove = () => {
         for (let i = 0; i < allcells.length; i++) {
             allcells[i].disabled = true;
         }
+        let replayGame = document.getElementById('replayGame');
+        replayGame.style.display = 'block';
 
     } else if (drawChecker()) {
         alert("No One Wins Game Over!")
@@ -113,7 +115,22 @@ const checkNextMove = () => {
     }
 };
 
+const replayGame = () => {
+    gameModule.currentPlayerName = gameModule.playerOneName;
+    gameModule.currentPlayerSym = "X";
+    gameModule.count = 0;
+    gameModule.gameBoard = ['', '', '', '', '', '', '', '', ''];
+    let allcells = document.getElementsByClassName('cell');
+    for (let i = 0; i < allcells.length; i++) {
+        allcells[i].disabled = false;
+        allcells[i].innerHTML = i;
+    }
+    let replayGame = document.getElementById('replayGame');
+    replayGame.style.display = 'none';
+}
+
 document.getElementById("startGame").addEventListener("click", checkInput);
 document.getElementById('gameBord').addEventListener('click', (e) => {
     updateMoves(e.target);
 })
+document.getElementById('replayGame').addEventListener('click', replayGame);
