@@ -4,7 +4,7 @@ const gameModule = (function () {
     let playerTwoName = "";
     let currentPlayerName = "";
     let currentPlayerSym = "";
-    let gameBoard = ['', '', '', '', '', '', '', '', '' ];
+    let gameBoard = ['', '', '', '', '', '', '', '', ''];
     let count = 0;
 
     return {
@@ -35,12 +35,12 @@ const gameInit = (playerOneName, playerTwoName) => {
     gameModule.gameOn = true;
     gameModule.playerOneName = playerOneName;
     gameModule.playerTwoName = playerTwoName;
-    gameModule.currentPlayerName = playerOneName;
+    gameModule.currentPlayerName = gameModule.playerOneName;
     gameModule.currentPlayerSym = "X";
     let playersForm = document.getElementById('playersForm');
     playersForm.style.display = 'none';
     let nextPlayer = document.getElementById('nextPlayer');
-    nextPlayer.innerHTML = playerOneName + " Start!";
+    nextPlayer.innerHTML = gameModule.currentPlayerName + " Start!";
 
 };
 
@@ -48,9 +48,11 @@ const updateMoves = (el) => {
     if (gameModule.gameOn) {
         el.innerHTML = gameModule.currentPlayerSym;
         gameModule.gameBoard[el.value] = gameModule.currentPlayerSym;
+        el.disabled = true;
         gameModule.count++;
-        winChecker();
-        alert(drawChecker());
+        checkNextMove();
+        let nextPlayer = document.getElementById('nextPlayer');
+        nextPlayer.innerHTML = gameModule.currentPlayerName + " Turn!";
     } else {
         alert("Invalid Move");
     }
@@ -85,6 +87,31 @@ const drawChecker = () => {
         return false;
     }
 }
+
+const changePlayer = () => {
+    if (gameModule.currentPlayerName === gameModule.playerOneName) {
+        gameModule.currentPlayerName = gameModule.playerTwoName;
+        gameModule.currentPlayerSym = "O";
+    } else if (gameModule.currentPlayerName === gameModule.playerTwoName) {
+        gameModule.currentPlayerName = gameModule.playerOneName;
+        gameModule.currentPlayerSym = "X";
+    }
+}
+
+const checkNextMove = () => {
+    if (winChecker()) {
+        alert(gameModule.currentPlayerName + " Wins!");
+        let allcells = document.getElementsByClassName('cell');
+        for (let i = 0; i < allcells.length; i++) {
+            allcells[i].disabled = true;
+        }
+
+    } else if (drawChecker()) {
+        alert("No One Wins Game Over!")
+    } else {
+        changePlayer();
+    }
+};
 
 document.getElementById("startGame").addEventListener("click", checkInput);
 document.getElementById('gameBord').addEventListener('click', (e) => {
