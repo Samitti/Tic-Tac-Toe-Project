@@ -10,16 +10,33 @@ import {
   alertMsg,
   gameOver,
   // eslint-disable-next-line import/extensions
-} from "./dom.js";
+} from './dom.js';
+
+// eslint-disable-next-line func-names
+const domElements = (function () {
+  const inAlertMsg = (msg) => {
+    alertMsg.innerHTML = msg;
+  };
+
+  const inNextPlayer = (msg) => {
+    nextPlayer.innerHTML = msg;
+  };
+
+
+  return {
+    inAlertMsg,
+    inNextPlayer,
+  };
+}());
 
 // eslint-disable-next-line func-names
 const gameBordModule = (function () {
   const gameOn = false;
-  const playerOneName = "";
-  const playerTwoName = "";
-  const currentPlayerName = "";
-  const currentPlayerSym = "";
-  const gameBoard = ["", "", "", "", "", "", "", "", ""];
+  const playerOneName = '';
+  const playerTwoName = '';
+  const currentPlayerName = '';
+  const currentPlayerSym = '';
+  const gameBoard = ['', '', '', '', '', '', '', '', ''];
   const count = 0;
 
   return {
@@ -31,43 +48,18 @@ const gameBordModule = (function () {
     gameBoard,
     count,
   };
-})();
+}());
 
-const playerModule = (function () {
-  const checkInput = (ev) => {
-    ev.preventDefault();
-    if (playerOneName.value === "" || playerTwoName.value === "") {
-      domElements.inAlertMsg("NAME CANNOT BE BLANK!");
-    } else {
-      gameModule.gameInit(playerOneName.value, playerTwoName.value);
-    }
-  };
-
-  const changePlayer = () => {
-    if (gameBordModule.currentPlayerName === gameBordModule.playerOneName) {
-      gameBordModule.currentPlayerName = gameBordModule.playerTwoName;
-      gameBordModule.currentPlayerSym = "O";
-    } else if (gameBordModule.currentPlayerName === gameBordModule.playerTwoName) {
-      gameBordModule.currentPlayerName = gameBordModule.playerOneName;
-      gameBordModule.currentPlayerSym = "X";
-    }
-  };
-
-  return {
-    checkInput: checkInput,
-    changePlayer: changePlayer,
-  }
-})();
-
+// eslint-disable-next-line func-names
 const gameModule = (function () {
   const gameInit = (playerOneName, playerTwoName) => {
     gameBordModule.gameOn = true;
     gameBordModule.playerOneName = playerOneName;
     gameBordModule.playerTwoName = playerTwoName;
     gameBordModule.currentPlayerName = gameBordModule.playerOneName;
-    gameBordModule.currentPlayerSym = "X";
-    playersForm.style.display = "none";
-    inNextPlayer(`${gameBordModule.currentPlayerName} Start!`);
+    gameBordModule.currentPlayerSym = 'X';
+    playersForm.style.display = 'none';
+    domElements.inNextPlayer(`${gameBordModule.currentPlayerName} Start!`);
   };
 
   const winChecker = () => {
@@ -92,19 +84,27 @@ const gameModule = (function () {
     return win;
   };
 
+  const drawChecker = () => {
+    if (gameBordModule.count > 8) {
+      return true;
+    }
+    return false;
+  };
+
   const checkNextMove = () => {
     if (winChecker()) {
       gameOver.innerHTML = `${gameBordModule.currentPlayerName} Wins!`;
-      gameOver.style.display = "block";
+      gameOver.style.display = 'block';
       for (let i = 0; i < allcells.length; i += 1) {
         allcells[i].disabled = true;
       }
-      replayGame.style.display = "block";
+      replayGame.style.display = 'block';
     } else if (drawChecker()) {
-      gameOver.innerHTML = "No One Wins Game Over!";
-      gameOver.style.display = "block";
-      replayGame.style.display = "block";
+      gameOver.innerHTML = 'No One Wins Game Over!';
+      gameOver.style.display = 'block';
+      replayGame.style.display = 'block';
     } else {
+      // eslint-disable-next-line no-use-before-define
       playerModule.changePlayer();
     }
   };
@@ -118,62 +118,63 @@ const gameModule = (function () {
       checkNextMove();
       nextPlayer.innerHTML = `${gameBordModule.currentPlayerName} Turn!`;
     } else {
-      domElements.inAlertMsg("Invalid Move");
+      domElements.inAlertMsg('Invalid Move');
     }
-  };
-
-  const drawChecker = () => {
-    if (gameBordModule.count > 8) {
-      return true;
-    }
-    return false;
   };
 
   const restartGame = () => {
     gameBordModule.currentPlayerName = gameBordModule.playerOneName;
-    gameBordModule.currentPlayerSym = "X";
+    gameBordModule.currentPlayerSym = 'X';
     gameBordModule.count = 0;
-    gameBordModule.gameBoard = ["", "", "", "", "", "", "", "", ""];
+    gameBordModule.gameBoard = ['', '', '', '', '', '', '', '', ''];
 
     for (let i = 0; i < allcells.length; i += 1) {
       allcells[i].disabled = false;
-      allcells[i].innerHTML = "";
+      allcells[i].innerHTML = '';
     }
-    replayGame.style.display = "none";
-    gameOver.style.display = "none";
+    replayGame.style.display = 'none';
+    gameOver.style.display = 'none';
   };
 
   return {
-    gameInit: gameInit,
-    checkNextMove: checkNextMove,
-    winChecker: winChecker,
-    updateMoves: updateMoves,
-    drawChecker: drawChecker,
-    restartGame: restartGame,
-  }
-})();
+    gameInit,
+    checkNextMove,
+    winChecker,
+    updateMoves,
+    drawChecker,
+    restartGame,
+  };
+}());
 
-const domElements = (function () {
-  const inAlertMsg = (msg) => {
-    alertMsg.innerHTML = msg;
+// eslint-disable-next-line func-names
+const playerModule = (function () {
+  const checkInput = (ev) => {
+    ev.preventDefault();
+    if (playerOneName.value === '' || playerTwoName.value === '') {
+      domElements.inAlertMsg('NAME CANNOT BE BLANK!');
+    } else {
+      gameModule.gameInit(playerOneName.value, playerTwoName.value);
+    }
   };
 
-  const inNextPlayer = (msg) => {
-    nextPlayer.innerHTML = msg;
+  const changePlayer = () => {
+    if (gameBordModule.currentPlayerName === gameBordModule.playerOneName) {
+      gameBordModule.currentPlayerName = gameBordModule.playerTwoName;
+      gameBordModule.currentPlayerSym = 'O';
+    } else if (gameBordModule.currentPlayerName === gameBordModule.playerTwoName) {
+      gameBordModule.currentPlayerName = gameBordModule.playerOneName;
+      gameBordModule.currentPlayerSym = 'X';
+    }
   };
-
-
 
   return {
-    inAlertMsg,
-    inNextPlayer,
-  }
+    checkInput,
+    changePlayer,
+  };
+}());
 
-
-})();
-
-startGame.addEventListener("click", playerModule.checkInput);
-gameBord.addEventListener("click", (e) => {
+startGame.addEventListener('click', playerModule.checkInput);
+gameBord.addEventListener('click', (e) => {
   gameModule.updateMoves(e.target);
 });
-replayGame.addEventListener("click", gameModule.restartGame);
+replayGame.addEventListener('click', gameModule.restartGame);
