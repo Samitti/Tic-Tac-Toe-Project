@@ -22,10 +22,24 @@ const domElements = (function () {
     nextPlayer.innerHTML = msg;
   };
 
+  const inGameOver = (msg) => {
+    gameOver.innerHTML = msg;
+  };
+
+  const clickedBtn = (el, sym) => {
+    el.innerHTML = sym;
+  };
+
+  const resetBtns = (i) => {
+    allcells[i].innerHTML = '';
+  };
 
   return {
     inAlertMsg,
     inNextPlayer,
+    inGameOver,
+    clickedBtn,
+    resetBtns,
   };
 }());
 
@@ -93,14 +107,14 @@ const gameModule = (function () {
 
   const checkNextMove = () => {
     if (winChecker()) {
-      gameOver.innerHTML = `${gameBordModule.currentPlayerName} Wins!`;
+      domElements.inGameOver(`${gameBordModule.currentPlayerName} Wins!`);
       gameOver.style.display = 'block';
       for (let i = 0; i < allcells.length; i += 1) {
         allcells[i].disabled = true;
       }
       replayGame.style.display = 'block';
     } else if (drawChecker()) {
-      gameOver.innerHTML = 'No One Wins Game Over!';
+      domElements.inGameOver('No One Wins Game Over!');
       gameOver.style.display = 'block';
       replayGame.style.display = 'block';
     } else {
@@ -111,12 +125,12 @@ const gameModule = (function () {
 
   const updateMoves = (el) => {
     if (gameBordModule.gameOn) {
-      el.innerHTML = gameBordModule.currentPlayerSym;
+      domElements.clickedBtn(el, gameBordModule.currentPlayerSym);
       gameBordModule.gameBoard[el.value] = gameBordModule.currentPlayerSym;
       el.disabled = true;
       gameBordModule.count += 1;
       checkNextMove();
-      nextPlayer.innerHTML = `${gameBordModule.currentPlayerName} Turn!`;
+      domElements.inNextPlayer(`${gameBordModule.currentPlayerName} Turn!`);
     } else {
       domElements.inAlertMsg('Invalid Move');
     }
@@ -130,7 +144,7 @@ const gameModule = (function () {
 
     for (let i = 0; i < allcells.length; i += 1) {
       allcells[i].disabled = false;
-      allcells[i].innerHTML = '';
+      domElements.resetBtns(i);
     }
     replayGame.style.display = 'none';
     gameOver.style.display = 'none';
