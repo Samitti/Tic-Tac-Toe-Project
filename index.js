@@ -37,7 +37,7 @@ const playerModule = (function () {
   const checkInput = (ev) => {
     ev.preventDefault();
     if (playerOneName.value === "" || playerTwoName.value === "") {
-      alertMsg.innerHTML = "NAME CANNOT BE BLANK!";
+      domElements.inAlertMsg("NAME CANNOT BE BLANK!");
     } else {
       gameModule.gameInit(playerOneName.value, playerTwoName.value);
     }
@@ -67,7 +67,7 @@ const gameModule = (function () {
     gameBordModule.currentPlayerName = gameBordModule.playerOneName;
     gameBordModule.currentPlayerSym = "X";
     playersForm.style.display = "none";
-    nextPlayer.innerHTML = `${gameBordModule.currentPlayerName} Start!`;
+    inNextPlayer(`${gameBordModule.currentPlayerName} Start!`);
   };
 
   const winChecker = () => {
@@ -118,7 +118,7 @@ const gameModule = (function () {
       checkNextMove();
       nextPlayer.innerHTML = `${gameBordModule.currentPlayerName} Turn!`;
     } else {
-      alertMsg.innerHTML = "Invalid Move";
+      domElements.inAlertMsg("Invalid Move");
     }
   };
 
@@ -151,6 +151,25 @@ const gameModule = (function () {
     drawChecker: drawChecker,
     restartGame: restartGame,
   }
+})();
+
+const domElements = (function () {
+  const inAlertMsg = (msg) => {
+    alertMsg.innerHTML = msg;
+  };
+
+  const inNextPlayer = (msg) => {
+    nextPlayer.innerHTML = msg;
+  };
+
+
+
+  return {
+    inAlertMsg,
+    inNextPlayer,
+  }
+
+
 })();
 
 startGame.addEventListener("click", playerModule.checkInput);
