@@ -1,0 +1,30 @@
+{
+  "name": "tic-tac-toe-project",
+  "version": "1.0.0",
+  "description": "This is a simple javascript Tic Tac Toe game from the odin project where you can play in your browser.",
+  "main": "index.js",
+  "dependencies": {
+    "stylelint": "^13.3.3",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-csstree-validator": "^1.8.0",
+    "stylelint-scss": "^3.17.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Samitti/Tic-Tac-Toe-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Samitti/Tic-Tac-Toe-Project/issues"
+  },
+  "homepage": "https://github.com/Samitti/Tic-Tac-Toe-Project#readme"
+}
