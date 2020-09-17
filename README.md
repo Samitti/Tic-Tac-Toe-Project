@@ -12,6 +12,20 @@ This is a simple javascript Tic Tac Toe game from the odin project where you can
 
 [Live Demo Link](https://raw.githack.com/Samitti/Tic-Tac-Toe-Project/feature/index.html)
 
+## Getting Started
+
+## Install
+
+- Install VSCode or any code editor you like
+- Install Node JS
+
+To get a local copy up and running follow these simple example steps.
+
+- Open a terminal or command prompt interface on your machine
+- Clone the project unto your local machine: `https://github.com/Samitti/Tic-Tac-Toe-Project.git`
+- From your terminal enter the project directory using `cd Tic-Tac-Toe-Project`
+- Run the index.html in a browser.
+
 ## Authors
 
 👤 **Samuel Teweldebrhan Ghebremeskel**
