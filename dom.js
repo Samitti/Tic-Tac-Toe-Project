@@ -71,7 +71,6 @@ export {
   replayGame,
   allcells,
   nextPlayer,
-  // playersForm,
   playerOneName,
   playerTwoName,
   alertMsg,

@@ -3,12 +3,8 @@ import {
   gameBord,
   replayGame,
   allcells,
-  // nextPlayer,
-  // playersForm,
   playerOneName,
   playerTwoName,
-  // alertMsg,
-  gameOver,
   domElements,
   // eslint-disable-next-line import/extensions
 } from './dom.js';
