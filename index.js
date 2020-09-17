@@ -3,45 +3,15 @@ import {
   gameBord,
   replayGame,
   allcells,
-  nextPlayer,
-  playersForm,
+  // nextPlayer,
+  // playersForm,
   playerOneName,
   playerTwoName,
-  alertMsg,
+  // alertMsg,
   gameOver,
+  domElements,
   // eslint-disable-next-line import/extensions
 } from './dom.js';
-
-// eslint-disable-next-line func-names
-const domElements = (function () {
-  const inAlertMsg = (msg) => {
-    alertMsg.innerHTML = msg;
-  };
-
-  const inNextPlayer = (msg) => {
-    nextPlayer.innerHTML = msg;
-  };
-
-  const inGameOver = (msg) => {
-    gameOver.innerHTML = msg;
-  };
-
-  const clickedBtn = (el, sym) => {
-    el.innerHTML = sym;
-  };
-
-  const resetBtns = (i) => {
-    allcells[i].innerHTML = '';
-  };
-
-  return {
-    inAlertMsg,
-    inNextPlayer,
-    inGameOver,
-    clickedBtn,
-    resetBtns,
-  };
-}());
 
 // eslint-disable-next-line func-names
 const gameBordModule = (function () {
@@ -72,7 +42,6 @@ const gameModule = (function () {
     gameBordModule.playerTwoName = playerTwoName;
     gameBordModule.currentPlayerName = gameBordModule.playerOneName;
     gameBordModule.currentPlayerSym = 'X';
-    playersForm.style.display = 'none';
     domElements.inNextPlayer(`${gameBordModule.currentPlayerName} Start!`);
   };
 
@@ -108,15 +77,15 @@ const gameModule = (function () {
   const checkNextMove = () => {
     if (winChecker()) {
       domElements.inGameOver(`${gameBordModule.currentPlayerName} Wins!`);
-      gameOver.style.display = 'block';
+      domElements.gameOverStyle();
       for (let i = 0; i < allcells.length; i += 1) {
         allcells[i].disabled = true;
       }
-      replayGame.style.display = 'block';
+      domElements.replayGameStyle();
     } else if (drawChecker()) {
       domElements.inGameOver('No One Wins Game Over!');
-      gameOver.style.display = 'block';
-      replayGame.style.display = 'block';
+      domElements.gameOverStyle();
+      domElements.replayGameStyle();
     } else {
       // eslint-disable-next-line no-use-before-define
       playerModule.changePlayer();
@@ -146,8 +115,8 @@ const gameModule = (function () {
       allcells[i].disabled = false;
       domElements.resetBtns(i);
     }
-    replayGame.style.display = 'none';
-    gameOver.style.display = 'none';
+    domElements.replayGameStyleNone();
+    domElements.gameOverStyleNone();
   };
 
   return {
@@ -167,6 +136,7 @@ const playerModule = (function () {
     if (playerOneName.value === '' || playerTwoName.value === '') {
       domElements.inAlertMsg('NAME CANNOT BE BLANK!');
     } else {
+      domElements.playersFormStyle();
       gameModule.gameInit(playerOneName.value, playerTwoName.value);
     }
   };
