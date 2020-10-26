@@ -158,3 +158,7 @@ gameBord.addEventListener('click', (e) => {
   gameModule.updateMoves(e.target);
 });
 replayGame.addEventListener('click', gameModule.restartGame);
+
+module.exports = {
+  gameBordModule,
+};
