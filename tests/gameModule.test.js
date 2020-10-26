@@ -1,5 +1,5 @@
 import gameModule from '../index';
 
-test('board', () => {
-  expect(gameModule.winChecker()).toBe(false);
+test('check draw', () => {
+  expect(gameModule.drawChecker()).toBe(false);
 });
