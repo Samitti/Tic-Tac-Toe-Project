@@ -153,8 +153,16 @@ const playerModule = (function () {
   };
 }());
 
-startGame.addEventListener('click', playerModule.checkInput);
-gameBord.addEventListener('click', (e) => {
-  gameModule.updateMoves(e.target);
+document.addEventListener('DOMContentLoaded', () => {
+  startGame.addEventListener('click', playerModule.checkInput);
+  gameBord.addEventListener('click', (e) => {
+    gameModule.updateMoves(e.target);
+  });
+  replayGame.addEventListener('click', gameModule.restartGame);
 });
-replayGame.addEventListener('click', gameModule.restartGame);
+
+export {
+  gameModule,
+  gameBordModule,
+  playerModule,
+};
