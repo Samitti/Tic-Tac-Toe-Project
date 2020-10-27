@@ -20,13 +20,3 @@ test('win check if symbol is assigned', () => {
   gameBordModule.currentPlayerSym = 'X';
   expect(gameModule.winChecker()).toBe(false);
 });
-
-// test('updateMoves', () => {
-//   gameBordModule.gameOn = false;
-//   expect(gameModule.updateMoves()).toBe(gameBordModule.count = 0);
-// });
-
-// test('updateMoves', () => {
-//   gameBordModule.gameOn = true;
-//   expect(gameModule.updateMoves()).toBe(gameBordModule.count = 1);
-// });
