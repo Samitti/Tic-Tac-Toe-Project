@@ -141,11 +141,9 @@ const playerModule = (function () {
     if (gameBordModule.currentPlayerName === gameBordModule.playerOneName) {
       gameBordModule.currentPlayerName = gameBordModule.playerTwoName;
       gameBordModule.currentPlayerSym = 'O';
-      return 'O';
-    } if (gameBordModule.currentPlayerName === gameBordModule.playerTwoName) {
+    } else if (gameBordModule.currentPlayerName === gameBordModule.playerTwoName) {
       gameBordModule.currentPlayerName = gameBordModule.playerOneName;
       gameBordModule.currentPlayerSym = 'X';
-      return 'X';
     }
   };
 
