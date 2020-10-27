@@ -141,9 +141,11 @@ const playerModule = (function () {
     if (gameBordModule.currentPlayerName === gameBordModule.playerOneName) {
       gameBordModule.currentPlayerName = gameBordModule.playerTwoName;
       gameBordModule.currentPlayerSym = 'O';
-    } else if (gameBordModule.currentPlayerName === gameBordModule.playerTwoName) {
+      return 'O';
+    } if (gameBordModule.currentPlayerName === gameBordModule.playerTwoName) {
       gameBordModule.currentPlayerName = gameBordModule.playerOneName;
       gameBordModule.currentPlayerSym = 'X';
+      return 'X';
     }
   };
 
@@ -161,4 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
   replayGame.addEventListener('click', gameModule.restartGame);
 });
 
-module.exports = gameModule;
+export {
+  gameModule,
+  gameBordModule,
+  playerModule,
+};
